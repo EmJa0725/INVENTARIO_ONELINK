@@ -1,0 +1,89 @@
+{{#if user}}
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/signin"><img src="/img/logo.png" width="40%" alt=""></a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+        data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    {{!-- <div class="timeContainer">
+        <div class="widget">
+            <div class="date">
+                <p id="weekDay" class="weekDay"></p>
+                <p id="day" class="day"></p>
+                <p>de</p>
+                <p id="month" class="month"></p>
+                <p>del</p>
+                <p id="year" class="year"></p>
+            </div>
+            <div class="clock">
+                <p id="hours" class="hours"></p>
+                <p>:</p>
+                <p id="minuts" class="minuts"></p>
+                <p>:</p>
+                <div class="secondsBox">
+                    <p id="ampm" class="ampm"></p>
+                    <p id="seconds" class="seconds"></p>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <div class="ml-4 d-none d-md-block timeContainer  font-weight-bolder">
+        <div class="d-inline date">
+            <p id="weekDay" class="weekDay"></p>
+            <p id="day" class="day"></p>
+            <p>de</p>
+            <p id="month" class="month"></p>
+            <p>del</p>
+            <p id="year" class="year"></p>
+        </div>
+        <div class="clock">
+            <p id="hours" class="hours"></p>
+                <p>:</p>
+                <p id="minuts" class="minuts"></p>
+                <p>:</p>                
+                <p id="seconds" class="seconds"></p>
+                <p id="ampm" class="ampm"></p>                    
+               
+        </div>
+    </div>
+
+    <h1 class="ml-4 pr-md-4 mx-md-auto">Gestor inventario</h1>
+    <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+        <a class="nav-link" href="#">Sign out</a>
+        </li>
+    </ul> -->
+    <div class="dropdown" style="text-align: right;">
+        <button class="btn btn-secondary dropdown-toggle mr-3 float-md-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user.Username}}
+        </button>
+        <div class="dropdown-menu dropdown-menu-right mr-3" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item cerrarSesion text-primary" href="/logout">Cerrar sesion</a>
+        </div>
+    </div>
+    {{!-- <p><a href="/logout" class="cerrarSesion">Cerrar sesión</a></p> --}}
+</nav> 
+{{else}}
+<div id="cabecera">
+    <div class="container-fluid" id="ContainerHeader">
+        <div class="row">
+            <!-- Bootstrap trabaja en bloques de 12 columnas -->
+            <div class="col-lg-3">
+                <a href="index.php">
+                    <img src="img/logo.png" width="40%" alt="">
+                </a>                
+            </div>
+            <div class="col-lg-6">
+                <h1>Gestor inventario</h1>
+            </div>
+            <div class="col-lg-3 socialmediaicons ">
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
+                <a href="#" class="fa fa-instagram"></a>
+                <a href="#" class="fa fa-youtube"></a>                
+            </div>
+        </div>             
+    </div>        
+</div>
+{{/if}}

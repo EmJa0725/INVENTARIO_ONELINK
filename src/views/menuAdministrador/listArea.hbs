@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row mt-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="col-8 mx-auto">{{>message}}</div>
+            <div class="table-responsive-lg">
+            
+              <table id="areasTable" class="table table-sm table-striped table-bordered mt-4 bg-white">
+                <thead style="background-color: rgb(92, 135, 230); font-size: 1.15rem;">
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Empleados</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each areaRows}}
+                  <tr>
+                    <th scope="row" id="idEmpleado">{{IdArea}}</th>
+                    <td>{{NombreArea}}</td>
+                    <td>{{CantidadEmpleados}}</td>
+                    <td id="editButton" title="Editar Usuario"><a href="/menuAdministrador/editArea/{{IdArea}}"
+                        style="display: block;">
+                        <div data-feather="edit" class="text-primary"></div>
+                      </a>
+                    </td>
+                    <td id="deleteButton" title="Borrar Usuario"><a href="" onclick="fillAreaModal('{{NombreArea}}','{{IdArea}}')"
+                        data-toggle="modal" data-target="#modalCenter" style="display: block;">
+                        <div data-feather="delete" class="text-danger"></div>
+                      </a>
+            
+                      <!-- Modal -->
+                      <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title p-0" id="exampleModalLongTitle">Confirmar accion</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="modalBody">
+                              {{!-- filled by fillUserModal()  function--}}
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" id="backModal" data-dismiss="modal">Volver</button>
+                              <button type="submit" onclick="confirmDeleteArea();" class="btn btn-primary"
+                                id="deleteModal">Eliminar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal -->
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            
+            </div>
+        </main>
+    </div>
+</div>
