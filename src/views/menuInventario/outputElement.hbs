@@ -1,0 +1,182 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+            <div class="row">
+                <div class="col-lg-5 mt-4">
+                    {{>message}}
+                    <div class="card">
+                        <div class="card-header font-weight-bold">
+                            <h5 class="text-center">Movimiento Inventario</h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="pt-0">Tipo movimiento</h5>
+                            <div class="form-row p-1">
+                                <div class="form-check col-6">
+                                    <input class="form-check-input tipoMovimiento" type="radio" name="tipoMovimiento" value="Salida" checked>
+                                    <label class="form-check-label" for="salida">Salida</label>
+                                </div>
+                                <div class="form-check  col-6">
+                                    <input class="form-check-input tipoMovimiento" type="radio" name="tipoMovimiento" value="Devolucion">
+                                    <label class="form-check-label" for="devolucion">Devolucion</label>
+                                </div>
+                            </div>
+                            <form id="outputForm" action="javascript: listOutputElement()" class="form-group p-2 elementForm">
+                                <h5>Nombre Elemento</h5>
+                                <select name="select" id="nombreElementoSalida" class="form-control elementSelect" required>
+                                    <option value="" selected hidden>-- Seleccionar elemento --</option>
+                                    {{#each listElementQuery}}
+                                    <option data-stock="{{Stock}}" value='{{IdElemento}}'>{{NombreElemento}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="form-row" style="margin-top: 20px;">
+                                    <div class="form-group col-md-4">
+                                        <h5>Cod. Elemento</h5>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="codigoElemento" id="codigoElemento" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <h5>Cantidad</h5>
+                                        <input type="number" name="cantidad" id="cantidadSalida" placeholder="Cantidad" class="form-control" min="1"
+                                            max="" required>
+                                    </div>
+                                    <div class="form-group col-md-2"></div>
+                                    <div class="form-group col-md-5">
+                                        <h5 style="color: red; font-weight: bold;">Stock</h5>
+                                        <input type="text" name="stock" id="stockElemento" class="form-control" readonly required>
+                                    </div>
+                                </div>
+                                <h5>Area</h5>
+                                <select name="select" id="nombreAreaSalida" class="form-control areaSelect" required>
+                                    <option value="" selected hidden>-- Seleccionar area --</option>
+                                    {{#each listAreaQuery}}
+                                    <option value='{{IdArea}}'>{{NombreArea}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="form-row" style="margin-top: 20px;">
+                                    <div class="form-group col-md-4">
+                                        <h5>Cod. Area</h5>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="codigoArea" id="codigoArea" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <h5>Empleado</h5>
+                                <select name="select" id="nombreEmpleadoSalida" class="form-control staffSelect" required>
+                                    <option value="" selected hidden>-- Seleccionar Empleado --</option>
+                                    {{#each listStaffQuery}}
+                                    <option value="{{IdEmpleado}}" data-area="{{IdArea}}">{{NombreEmpleado}} {{ApellidoEmpleado}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="form-row" style="margin-top: 20px;">
+                                    <div class="form-group col-md-4">
+                                        <h5>Cod. Empleado</h5>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="codigoEmpleado" id="codigoEmpleado" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Agregar" class="btn btn-primary float-right mt-4 mb-2" style="font-size:1.3rem;">                            
+                            </form>
+                            <form id="returnForm" action="javascript: listReturnElement()" class="form-group p-2 elementForm">
+                                <h5>Area</h5>
+                                <select name="select" id="nombreAreaDevolucion" class="form-control areaSelect" required>
+                                    <option value="" selected hidden>-- Seleccionar area --</option>
+                                    {{#each areaWithElementsQuery}}
+                                    <option value='{{IdArea}}'>{{NombreArea}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="form-row" style="margin-top: 20px;">
+                                    <div class="form-group col-md-4">
+                                        <h5>Cod. Area</h5>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="codigoArea" id="codigoAreaDevolucion" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <h5>Empleado</h5>
+                                <select name="select" id="nombreEmpleadoDevolucion" class="form-control staffSelect" required>
+                                    <option value="" selected hidden>-- Seleccionar Empleado --</option>
+                                    {{#each staffWithElementsQuery}}
+                                    <option value="{{IdEmpleado}}" data-area="{{IdArea}}">{{NombreEmpleado}} {{ApellidoEmpleado}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="form-row" style="margin-top: 20px;">
+                                    <div class="form-group col-md-4">
+                                        <h5>Cod. Empleado</h5>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="codigoEmpleado" id="codigoEmpleadoDevolucion" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <h5>Nombre Elemento</h5>
+                                <select name="select" id="nombreElementoDevolucion" class="form-control elementSelect" required>
+                                    <option value="" selected hidden>-- Seleccionar elemento --</option>
+                                    {{#each activeElementsQuery}}
+                                    <option value='{{IdElemento}}' data-cantidad="{{Cantidad}}" data-empleado="{{IdEmpleado}}">{{NombreElemento}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                                <div class="form-row" style="margin-top: 20px;">
+                                    <div class="form-group col-md-4">
+                                        <h5>Cod. Elemento</h5>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="codigoElemento" id="codigoElementoDevolucion" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <h5 style="color: red;">Asignado</h5>
+                                        <input type="number" name="cantidad" id="cantidadAsignada" placeholder="Asignado" class="form-control"
+                                            readonly required>
+                                    </div>
+                                    <div class="col-2"></div>
+                                    <div class="form-group col-md-5">
+                                        <h5>Cantidad</h5>
+                                        <input type="number" name="cantidad" id="cantidadDevolucion" placeholder="Cantidad" class="form-control"
+                                            min="0" max="" required>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Agregar" class="btn btn-primary float-right mt-4 mb-2" style="font-size:1.3rem;">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 mt-4">
+                    <form id="formTable" action="/menuInventario/outputElement" method="post" class="form-group">
+                        <table id="outputTable" class="table table-bordered  col-12 bg-light" cellspacing="0"
+                            width="100%">
+                            <thead class="font-weight-bold">
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Id<span class="d-none">Elemento</span></th>
+                                    <th>Elemento</th>
+                                    <th>Cantidad</th>
+                                    <th>Id<span class="d-none">Area</span></th>
+                                    <th>Area</th>
+                                    <th>Id<span class="d-none">Empleado</span></th>
+                                    <th>Empleado</th>
+                                </tr>
+                            </thead>
+                            <tbody id='outputTableBody'>
+                            </tbody>
+                        </table>
+                        <div>
+                            <input type="hidden" name="tableInput" id="tableInput">
+                        </div>
+                        <input type="submit" value="Ejecutar movimiento" onclick="tableOutputJson();"
+                            class="btn btn-primary mb-3">
+                        <button type="button" onclick="clearOutputTable();" class="btn btn-danger mb-3">Limpiar tabla</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- </div> -->
+        </main>
+    </div>
+</div>

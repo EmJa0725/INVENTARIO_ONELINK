@@ -45,18 +45,20 @@ app.use(passport.session());//public
 
 
 //Global variables
-app.use((req,res,next) => {
+app.use((req, res, next) => {
     app.locals.success = req.flash('success');
     app.locals.message = req.flash('message');
-    app.locals.user =  req.user;
+    app.locals.user = req.user;
     next();
 });
 
-  
+
 //Routes
 app.use(require('./routes/index'));
 app.use(require('./routes/authentication'));
 app.use('/menuAdministrador', require('./routes/menuAdministrador'));
+app.use('/menuInventario', require('./routes/menuInventario'));
+app.use('/menuCompras', require('./routes/menuCompras'));
 
 //Public
 app.use(express.static(path.join(__dirname,'public')));

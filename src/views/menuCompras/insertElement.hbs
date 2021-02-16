@@ -1,0 +1,161 @@
+<div class="container-fluid">
+        <div class="row">
+    
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+                <div class="row">
+                    <div class="col-lg-5 mt-4">
+                        {{>message}}
+                        <div class="card">
+                            <div class="card-header font-weight-bold">
+                                <h5 class="text-center">Ingresar Elemento</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="elementForm" action="javascript: listElement()" class="form-group p-2">
+                                    <h5>Nombre Elemento</h5>
+                                    <select name="select" id="nombreElementoEntrada" class="form-control elementSelect" required>
+                                        <option value="" selected hidden>-- Seleccionar elemento --</option>
+                                        {{#each listElementQuery}}
+                                        <option data-stock="{{Stock}}" value='{{IdElemento}}'>{{NombreElemento}}</option>                                        
+                                        {{/each}}
+                                    </select>
+                                    <small id="emailHelp" class="form-text text-muted text-left">¿No encuentra el elemento en la lista? <a href="" data-toggle='modal' data-target='#modalElement'>Codificar aqui</a></small>
+                                    <div class="form-row" style="margin-top: 20px;">
+                                        <div class="form-group col-md-4">
+                                            <h5>Cod. Elemento</h5>
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                            <input type="text" name="codigoElemento" id="codigoElemento" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-5">
+                                            <h5>Cantidad</h5>
+                                            <!--oninput="validity.valid||(value='');"-->
+                                            <input type="number" name="cantidad" id="cantidadEntrada" placeholder="Cantidad" min="0"
+                                                class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-md-2"></div>
+                                        <div class="form-group col-md-5">
+                                            <h5 style="color: red; font-weight: bold;">Stock</h5>
+                                            <input type="text" name="stock" value="" id="stockElemento" class="form-control" required readonly>
+                                        </div>
+                                    </div>
+                                    <h5>Proveedor</h5>
+                                    <select name="select" id="nombreProveedorEntrada" class="form-control supplierSelect" required>
+                                        <option value="" selected hidden>-- Seleccionar proveedor --</option>
+                                        {{#each listProviderQuery}}
+                                        <option value='{{NITProveedor}}'>{{NombreProveedor}}</option>                                        
+                                        {{/each}}
+                                    </select>
+                                    <small id="emailHelp" class="form-text text-muted text-left">¿No encuentra el proveedor en la lista? <a href="" data-toggle='modal' data-target='#modalSupplier'>Codificar aqui</a></small>
+                                    <div class="form-row" style="margin-top: 20px;">
+                                        <div class="form-group col-md-4">
+                                            <h5>NIT Proveedor</h5>
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                            <input type="text" name="codigoProveedor" id="codigoProveedor" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-5 pl-0">
+                                            <h5>Precio</h5>
+                                            <input type="text" name="currency" id="precioElemento" class="form-control" required placeholder="$">
+                                        </div>
+                                        <div class="form-group col-md-7" style="align-self:flex-end;">
+                                            <button name="boton" value="Agregar" type="submit" class="btn btn-primary "
+                                                style="font-size:1.3rem;">Agregar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                        
+                            </div>
+                        </div>
+                        </div>
+                    <div class="col-lg-7 mt-4">
+                        <form action="/menuCompras/insertElement" method="post" class="form-group">                            
+                            <table id="elementsTable" class="table table-bordered  col-12 bg-light" cellspacing="0" width="100%">
+                                <thead class="font-weight-bold"><tr><th>Id</th><th>Nombre</th><th>Cantidad</th><th>NIT</th><th>Proveedor</th><th>V. Unitario</th><th>V. Total</th></tr></thead>
+                                <tbody id='elementsTableBody'>
+                                </tbody>
+                            </table> 
+                            <div>
+                                <input type="hidden" name="tableInput" id="tableInput">
+                            </div>                           
+                            <input type="submit" value="Ejecutar movimiento" onclick="tableJson();" class="btn btn-primary mb-3">
+                            <button type="button" onclick="clearTable();" class="btn btn-danger mb-3">Limpiar tabla</button>
+                        </form>
+                    </div>
+                </div>
+    
+                <!-- </div> -->
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Modal New Element -->
+    <div class="modal fade" id="modalElement" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title p-0" id="exampleModalLongTitle">Crear Elemento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <form action="createElement" method="POST">
+                        <div class="form-group">
+                            <label for="nombreNuevoElemento" class="float-left">Nombre Elemento</label>
+                            <input class="form-control" type="text" name="nombreNuevoElemento" id="nombreNuevoElemento" placeholder="Ingresar nombre"
+                                autofocus="autofocus" required>
+                        </div>
+                    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="backModalElement" data-dismiss="modal">Volver</button>
+                            <button type="submit" class="btn btn-primary" id="createElement">Crear</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+    <!-- Modal New supplier -->
+    <div class="modal fade" id="modalSupplier" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title p-0" id="exampleModalLongTitle">Crear Proveedor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <form action="createSupplier" method="POST">
+                        <div class="form-group">
+                            <label for="nombreNuevoProveedor" class="float-left">Nombre</label>
+                            <input class="form-control" type="text" name="nombreNuevoProveedor" id="nombreNuevoProveedor" autofocus="autofocus"
+                                required>
+                            <label for="direccionProveedor" class="float-left mt-2">Direccion</label>
+                            <input class="form-control" type="text" name="direccionProveedor" id="direccionProveedor" required>
+                            <label for="telefonoProveedor" class="float-left mt-2">Telefono</label>
+                            <input class="form-control" type="tel" name="telefonoProveedor" id="telefonoProveedor" required>
+                            <label for="correoProveedor" class="float-left mt-2">Correo</label>
+                            <input class="form-control" type="email" name="correoProveedor" id="correoProveedor" required>
+                        </div>
+                    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="backModalSupplier" data-dismiss="modal">Volver</button>
+                            <button type="submit" class="btn btn-primary" id="createSupplier">Crear</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->

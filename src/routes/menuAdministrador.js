@@ -6,13 +6,13 @@ const db = require('../database');
 const passport = require('passport');
 
 //------------- USER ROUTES ---------------------------------//
-router.get('/createUser', isLoggedIn, async(req, res) => {
+router.get('/createUser', isLoggedIn, protectIndex,  async(req, res) => {
     const listAreaQuery = await db.query("SELECT IdArea,NombreArea from Area");
     //const listArea = JSON.stringify(listAreaQuery);
     res.render('menuAdministrador/createUser', {listAreaQuery});
 });
 
-router.post('/createUser',isLoggedIn,async(req,res) =>{
+router.post('/createUser',isLoggedIn, protectIndex, async(req,res) =>{
     //console.log(req.body);    
     const {nombre,apellido,sexo,fNacimiento,correo,telefono,direccion,cargo,area,username,password} = req.body;
     var fechaIngreso = new Date(); 
@@ -39,13 +39,13 @@ router.post('/createUser',isLoggedIn,async(req,res) =>{
     res.redirect('/menuAdministrador/createUser');
 });
 
-router.get('/listUser', isLoggedIn, async(req, res) => {
+router.get('/listUser', isLoggedIn, protectIndex,  async(req, res) => {
     const userRows = await db.query("SELECT IdEmpleado,username,NombreEmpleado,ApellidoEmpleado,CargoEmpleado, area.NombreArea FROM Empleado INNER JOIN Area ON Empleado.FoArea = Area.IdArea;");
     res.render('menuAdministrador/listUser',{userRows});
 });
 
 
-router.get('/editUser/:id', isLoggedIn,async (req,res) =>{
+router.get('/editUser/:id', isLoggedIn, protectIndex, async (req,res) =>{
     const {id} = req.params;    
     const userQuery = await db.query("SELECT IdEmpleado,NombreEmpleado,ApellidoEmpleado,SexoEmpleado,DATE_FORMAT(fNacimientoEmpleado,'%Y-%m-%d') as fNacimientoEmpleado,CorreoEmpleado,TelefonoEmpleado,DireccionEmpleado,CargoEmpleado,area.NombreArea,FoArea,Username,Password FROM Empleado INNER JOIN Area ON Empleado.FoArea = Area.IdArea WHERE IdEmpleado = ?;",[id]);
     console.log(userQuery[0]);
@@ -53,7 +53,7 @@ router.get('/editUser/:id', isLoggedIn,async (req,res) =>{
     res.render('menuAdministrador/editUser',{userToEdit: userQuery[0],listAreaQuery});
 });
 
-router.post('/editUser/:id', isLoggedIn, async(req,res) =>{
+router.post('/editUser/:id', isLoggedIn, protectIndex,  async(req,res) =>{
     const {id} = req.params;
     const {nombre,apellido,sexo,fNacimiento,correo,telefono,direccion,cargo,area,username,password} = req.body;
     var edad = helpers.calcularEdad(fNacimiento);
@@ -81,7 +81,7 @@ router.post('/editUser/:id', isLoggedIn, async(req,res) =>{
     res.redirect('/menuAdministrador/editUser/'+id); 
 });
 
-router.get('/deleteUser/:id', isLoggedIn, async(req,res) =>{
+router.get('/deleteUser/:id', isLoggedIn, protectIndex,  async(req,res) =>{
     const {id} = req.params;
     console.log(id);
     await db.query('DELETE FROM empleado WHERE IdEmpleado=?',[id]);
@@ -90,13 +90,13 @@ router.get('/deleteUser/:id', isLoggedIn, async(req,res) =>{
 });
 
 //------------------ AREA ROUTES ----------------------//
-router.get('/createArea', isLoggedIn, async(req, res) => {
+router.get('/createArea', isLoggedIn, protectIndex,  async(req, res) => {
     const listAreaQuery = await db.query("SELECT IdArea,NombreArea from Area");
     //const listArea = JSON.stringify(listAreaQuery);
     res.render('menuAdministrador/createArea', {listAreaQuery});
 });
 
-router.post('/createArea',isLoggedIn,async(req,res) =>{
+router.post('/createArea',isLoggedIn, protectIndex, async(req,res) =>{
     //console.log(req.body);    
     const {nombreArea,funcionArea} = req.body;
     const newArea = {
@@ -110,25 +110,25 @@ router.post('/createArea',isLoggedIn,async(req,res) =>{
     res.redirect('/menuAdministrador/createArea');
 });
 
-router.get('/listArea', isLoggedIn, async(req, res) => {
+router.get('/listArea', isLoggedIn, protectIndex,  async(req, res) => {
     // Count Total employees by Area before render table 
     await db.query("UPDATE AREA  as A JOIN (SELECT t2.IdArea, IFNULL(COUNT(t1.FoArea),0) AS Total FROM Area AS t2 LEFT JOIN Empleado AS t1 ON t1.FoArea = t2.IdArea GROUP BY t2.IdArea) AS CON ON A.IdArea SET A.CantidadEmpleados = CON.TOTAL WHERE CON.IdArea = A.IdArea");
     const areaRows = await db.query("SELECT IdArea,NombreArea,CantidadEmpleados from area");      
     res.render('menuAdministrador/listArea',{areaRows});
 });
 
-router.get('/editArea/:idArea', isLoggedIn,async (req,res) =>{
+router.get('/editArea/:idArea', isLoggedIn, protectIndex, async (req,res) =>{
     const {idArea} = req.params;    
     const areaQuery = await db.query("SELECT IdArea,NombreArea,FuncionArea FROM Area WHERE idArea = ?;",[idArea]);
     console.log(areaQuery[0]);
         res.render('menuAdministrador/editArea',{areaToEdit: areaQuery[0]});
 });
 
-router.post('/editArea/:idArea', isLoggedIn, async(req,res) =>{
+router.post('/editArea/:idArea', isLoggedIn, protectIndex,  async(req,res) =>{
     const {idArea} = req.params;
-    const {nombreArea,funcionArea} = req.body;
+    const {editNombreArea,funcionArea} = req.body;
     const newArea = {
-        nombreArea,
+        NombreArea: editNombreArea,
         funcionArea        
     };
     console.log(newArea);
@@ -138,7 +138,7 @@ router.post('/editArea/:idArea', isLoggedIn, async(req,res) =>{
     res.redirect('/menuAdministrador/editArea/'+idArea); 
 });
 
-router.get('/deleteArea/:idArea', isLoggedIn, async(req,res) =>{
+router.get('/deleteArea/:idArea', isLoggedIn, protectIndex,  async(req,res) =>{
     const {idArea} = req.params;
     console.log(idArea);
     try{

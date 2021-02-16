@@ -20,7 +20,7 @@ passport.use('local.signin', new LocalStrategy({
             if(validPassword){
                 done(null,user,req.flash('success', 'Bienvenido ' + user.Username));
             }else{
-                done(null,false, req.flash('message','Constraseña incorrecta'));           
+                done(null,false, req.flash('message','Contraseña incorrecta'));           
             }
         }
     }catch(e){
