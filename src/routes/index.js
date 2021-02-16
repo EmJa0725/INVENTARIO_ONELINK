@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-    res.send('index');
+    res.redirect('/signin');
 });
 
 module.exports = router;

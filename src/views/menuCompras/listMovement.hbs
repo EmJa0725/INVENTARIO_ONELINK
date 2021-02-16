@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row mt-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="col-6 mx-auto">{{>message}}</div>
+            <div class="table-responsive-lg">
+              <table id="movementsTable" class="table table-sm table-striped table-bordered mt-4 bg-white">
+                <thead style="background-color: rgb(92, 135, 230); font-size: 1.15rem;">
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Elemento</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">V. Unidad</th>
+                    <th scope="col">V. Total</th>
+                    <th scope="col">Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each movementRows}}
+                  <tr>
+                    <th scope="row" id="idCompra">{{IdCompra}}</th>
+                    <td>{{NombreElemento}}</td>
+                    <td>{{Cantidad}}</td>
+                    <td>{{NombreProveedor}}</td>
+                    <td>$ {{ValorUnitario}}</td>
+                    <td>$ {{TotalCompra}}</td>
+                    <td>{{Fecha}}</td>                                
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+        </main>
+    </div>
+</div>

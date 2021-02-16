@@ -2,22 +2,56 @@
     <div class="container-fluid">
         <div class="row">   
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+                <div class="col-6 mx-auto mt-2">
+                    {{>message}}
+                </div>
                 <div class="row">
-                    <div class="col-6 col-lg-3 m-4 mx-auto mx-md-4">
-                        {{>message}}
+                    <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+                    <div class="col-sm-12 col-md-4 col-xl-3 m-4 mx-auto">
                         <div class="card w-100 border-primary">
                             <div class="card-header font-weight-bold">Total Usuarios</div>
                             <div class="card-body text-primary">
-                                <p class="card-text font-weight-bold" style="font-size: 30px;">{{CountStaff}}</p>
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">{{countStaff}}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6"></div>                       
+                    <div class="col-sm-12 col-md-4 col-xl-3 m-4 mx-auto">
+                        <div class="card w-100 border-primary">
+                            <div class="card-header font-weight-bold">Areas registradas</div>
+                            <div class="card-body text-primary">
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">{{countArea}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-xl-3 m-4 mx-auto">
+                        <div class="card w-100 border-primary">
+                            <div class="card-header font-weight-bold">Elementos registrados</div>
+                            <div class="card-body text-primary">
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">{{countElement}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-xl-3 m-4 mx-auto">
+                        <div class="card w-100 border-primary">
+                            <div class="card-header font-weight-bold">Proveedores registrados</div>
+                            <div class="card-body text-primary">
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">{{countProvider}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div> -->                
+                </div>     
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card border-primary">
+                            <div class="card-header font-weight-bold">Empleados por area</div>
+                            <div class="card-body">
+                                <canvas id="pieChart" width="1200" height="800"></canvas>
+                            </div>
+                        </div>                
+                    </div>
                 </div>
-    
-                <!-- </div> -->
-            </main>           
+            </main>
         </div>
     </div>  
 {{/if}}
@@ -25,66 +59,72 @@
 {{#if (isInventario user.TipoEmpleado)}}
 <div class="container-fluid">
     <div class="row">
-        
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="col-6 mx-auto mt-2">
+                {{>message}}
+            </div>
             <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
             <div class="row">
-                <div class="col-lg-5 mt-4">
-                    {{>message}}
-                    <form action="#" method="post" class="fform-group p-2 modForm">
-                        <h5 class="pt-0">Tipo movimiento</h5>
-                        <select name="select" id="tipoMovimiento" class="form-control" placeholder="Tipo movimiento" required>
-                            <option value="Salida" label="Salida">Salida</option>
-                            <option value="Devolución" label="Devolución">Devolución</option>
-                        </select>
-                        <h5>Nombre Elemento</h5>
-                        <select name="select" id="nombreElemento" class="form-control" placeholder="Tipo movimiento" required>
-                            <option value="Portatil corporativo Dell Ref 1804" label="Portatil corporativo Dell Ref 1804">Portatil corporativo Dell Ref 1804</option>
-                            <option value="Mousel Genius" label="Mouse Genius">Mouse Genius</option>
-                        </select>                                                   
-                        <div class="form-row" style="margin-top: 20px;">
-                            <div class="form-group col-md-4">
-                                <h5>Cod. Elemento</h5>
-                            </div>
-                            <div class="form-group col-md-8">
-                                 <input type="text" name="CodigoElemento" id="CodigoElemento" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-5">
-                                <h5>Cantidad</h5>
-                                <input type="number" name="cantidad" id="cantidadElemento" placeholder="Cantidad" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-2"></div>
-                            <div class="form-group col-md-5">
-                                <h5 style="color: red; font-weight: bold;">Stock</h5>
-                                <input type="text" name="stock" id="stockElemento" class="form-control" required>
+                <div class="col-6 col-lg-3 m-4 mx-auto">
+                    <div class="card w-100 border-primary">
+                        <div class="card-header font-weight-bold text-danger">Alerta stock</div>
+                        <div class="card-body text-primary">
+                            <div class="card-text">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Stock</th>
+                                        </tr>
+                                        {{#each stockAlert}}
+                                        <tr>
+                                            <td>{{NombreElemento}}</td>
+                                            <td>{{Stock}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <h5>Area</h5>
-                        <select name="select" id="nombreElemento" class="form-control" placeholder="Tipo movimiento" required>
-                            <option value="Sistemas" label="Sistemas">Portatil corporativo Dell Ref 1804</option>
-                            <option value="Contabilidad" label="Contabilidad">Mouse Genius</option>
-                        </select>                                                   
-                        <div class="form-row" style="margin-top: 20px;">
-                            <div class="form-group col-md-4">
-                                <h5>Cod. Area</h5>
-                            </div>
-                            <div class="form-group col-md-8">
-                                 <input type="text" name="CodigoElemento" id="CodigoElemento" class="form-control">
-                            </div>
-                        </div>
-                        <input type="submit" value="Agregar" class="btn btn-primary float-right mb-4">
-                    </form>
+                    </div>
                 </div>
-                <div class="col-lg-7 mt-4">
-                    <form action="#" method="post" class="form-group">
-                        <textarea name="prueba" id="" cols="30" rows="10" class="form-control" required></textarea>
-                        <input type="submit" value="Ejecutar movimiento" class="btn btn-primary">
-                    </form>
+                <div class="col-6 col-lg-3 m-4 mx-auto">
+                    <div class="card w-100 border-primary">
+                        <div class="card-header font-weight-bold">Elementos registrados</div>
+                        <div class="card-body text-primary">
+                            <div class="card-text">
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">{{countElement}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card w-100 border-primary mt-5">
+                        <div class="card-header font-weight-bold">Elementos asignados</div>
+                        <div class="card-body text-primary">
+                            <div class="card-text">
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">{{assignedElements}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 m-4 mx-auto">
+                    <div class="card w-100 border-primary">
+                        <div class="card-header font-weight-bold">Valor total inventario</div>
+                        <div class="card-body text-primary">
+                            <div class="card-text">
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">$ {{elementsValue}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card w-100 border-primary mt-5">
+                        <div class="card-header font-weight-bold">Total asignado</div>
+                        <div class="card-body text-primary">
+                            <div class="card-text">
+                                <p class="card-text font-weight-bold" style="font-size: 30px;">$ {{totalAssigned}}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-           
             <!-- </div> -->
         </main>
     </div>
@@ -92,80 +132,53 @@
 {{/if}}
 
 {{#if (isCompras user.TipoEmpleado)}}
-    <div class="container-fluid">
-        <div class="row">
-    
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
-                <div class="row">
-                    <div class="col-lg-5 mt-4">
-                        {{>message}}
-                        <form action="#" method="post" class="form-group p-2 modForm">
-                            <h5 class="pt-0">Tipo movimiento</h5>
-                            <select name="select" id="tipoMovimiento" class="form-control" placeholder="Tipo movimiento"
-                                required>
-                                <option value="Salida" label="Salida">Salida</option>
-                                <option value="Devolución" label="Devolución">Devolución</option>
-                            </select>
-                            <h5>Nombre Elemento</h5>
-                            <select name="select" id="nombreElemento" class="form-control" placeholder="Tipo movimiento"
-                                required>
-                                <option value="Portatil corporativo Dell Ref 1804"
-                                    label="Portatil corporativo Dell Ref 1804">Portatil corporativo Dell Ref 1804</option>
-                                <option value="Mousel Genius" label="Mouse Genius">Mouse Genius</option>
-                            </select>
-                            <div class="form-row" style="margin-top: 20px;">
-                                <div class="form-group col-md-4">
-                                    <h5>Cod. Elemento</h5>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <input type="text" name="CodigoElemento" id="CodigoElemento" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-5">
-                                    <h5>Cantidad</h5>
-                                    <input type="number" name="cantidad" id="cantidadElemento" placeholder="Cantidad"
-                                        class="form-control" required>
-                                </div>
-                                <div class="form-group col-md-2"></div>
-                                <div class="form-group col-md-5">
-                                    <h5 style="color: red; font-weight: bold;">Stock</h5>
-                                    <input type="text" name="stock" id="stockElemento" class="form-control" required>
-                                </div>
-                            </div>
-                            <h5>Proveedor</h5>
-                            <select name="select" id="nombreProveedor" class="form-control" placeholder="Tipo movimiento"
-                                required>
-                                <option value="..." label="...">...</option>
-                            </select>
-                            <div class="form-row" style="margin-top: 20px;">
-                                <div class="form-group col-md-4">
-                                    <h5>NIT Proveedor</h5>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <input type="text" name="CodigoProveedor" id="CodigoProveedor" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-5 pl-0">
-                                <h5>Precio</h5>
-                                <input type="text" name="stock" id="PrecioElemento" class="form-control" required
-                                    placeholder="$">
-                            </div>
-                            <input type="submit" value="Agregar" class="btn btn-primary float-right mb-4">
-                        </form>
-                    </div>
-                    <div class="col-lg-7 mt-4">
-                        <form action="#" method="post" class="form-group">
-                            <textarea name="prueba" id="" cols="30" rows="10" class="form-control" required></textarea>
-                            <input type="submit" value="Ejecutar movimiento" class="btn btn-primary">
-                        </form>
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="col-6 mx-auto mt-2">
+                {{>message}}
+            </div>
+            <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+            <div class="row">
+                <div class="col-sm-12 col-md-4 col-xl-3 m-4 mx-auto">
+                    <div class="card w-100 border-primary">
+                        <div class="card-header font-weight-bold">Elementos registrados</div>
+                        <div class="card-body text-primary">
+                            <p class="card-text font-weight-bold" style="font-size: 30px;">{{countElement}}</p>
+                        </div>
                     </div>
                 </div>
-    
-                <!-- </div> -->
-            </main>
-        </div>
+                <div class="col-sm-12 col-md-4 col-xl-3 m-4 mx-auto">
+                    <div class="card w-100 border-primary">
+                        <div class="card-header font-weight-bold">Proveedores registrados</div>
+                        <div class="card-body text-primary">
+                            <p class="card-text font-weight-bold" style="font-size: 30px;">{{countProvider}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-xl-3 m-4 mx-auto">
+                    <div class="card w-100 border-primary">
+                        <div class="card-header font-weight-bold">Valor total Inventario</div>
+                        <div class="card-body text-primary">
+                            <p class="card-text font-weight-bold" style="font-size: 30px;">$ {{elementsValue}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-11 mx-auto">
+                    <div class="card border-primary">
+                        <div class="card-header font-weight-bold">Valor asignado por area</div>
+                        <div class="card-body mx-auto">
+                            <canvas id="barChart" width="800" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </main>
     </div>
+</div>
+    
 {{/if}}
 
