@@ -1082,7 +1082,7 @@ $('.areaButton').click(function(){
   })
 })
 
-$("body").delegate(".employeeButton", "click", function(){
+$("body").on("click",".employeeButton", function(){
   $('.employeeButton').css("background-color", "#007bff");
   $(this).css("background-color", "orange");
   currentURL = window.location.href;

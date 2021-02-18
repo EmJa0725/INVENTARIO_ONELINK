@@ -24,8 +24,7 @@ helpers.matchPassword = async(password,savedPassword) =>{
     }
 }    
 
-helpers.calcularEdad= (fNacimiento) =>{
-   
+helpers.calcularEdad= (fNacimiento) =>{   
     //var fecha = document.getElementById("fNacimiento").value;
     var fecha_Nacimiento = new Date(fNacimiento);
     var fecha_Hoy = new Date();
@@ -46,5 +45,11 @@ helpers.verifyEncripted = async(password) =>{
     }
     return await false;
 };
+
+helpers.recoverPassword = async(username) => {
+    var random = Math.floor(Math.random() * 99999) + 10000  
+    newPassword= username + random;
+    return await newPassword; 
+} 
 
 module.exports = helpers;

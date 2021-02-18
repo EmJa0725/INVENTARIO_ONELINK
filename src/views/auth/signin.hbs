@@ -32,7 +32,7 @@
                             <input class="btn btn-block text-white" type="submit" value="INGRESAR">
                         </div>
                         <div class="form-group">
-                            <a href="#">Olvide mi contraseña</a>
+                            <a data-toggle="modal" href="#recoverPasswordModal">Olvide mi contraseña</a>
                         </div>
                         {{!-- <div class="form-group text-center mt-4 ">
                             <a href="/signup" id="crearUsuario">CREAR USUARIO</a>
@@ -40,6 +40,32 @@
                     </form>
                 </div>
             </div>            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-left" id="recoverPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reestablecer Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="recoverPassword" method="POST">
+                    <div class="form-group">
+                        <label for="usernameInput">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Ingrese usuario" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="backModalElement" data-dismiss="modal">Volver</button>
+                        <button type="submit" class="btn btn-primary" id="createElement">Enviar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
