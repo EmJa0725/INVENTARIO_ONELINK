@@ -360,6 +360,10 @@ body{
   bottom: .5em;
   }
 
+  .dataTables_wrapper {
+    font-size: 0.8rem;
+  }
+
   #usersTable_filter label,#areasTable_filter label{
     font-weight: bold;
     font-size: 1.1rem;

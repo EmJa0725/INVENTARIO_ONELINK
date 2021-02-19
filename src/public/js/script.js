@@ -735,6 +735,12 @@ $(document).ready(function () {
     width: '100%'
   });
 
+  $(".stateSelect").select2({
+    placeholder: "Seleccionar estado",
+    theme: 'bootstrap',
+    minimumResultsForSearch: Infinity
+  })
+
 
   $('#elementsTable').DataTable({
     "scrollY": "400px",
