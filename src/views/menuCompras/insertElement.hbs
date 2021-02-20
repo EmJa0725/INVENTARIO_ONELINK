@@ -4,14 +4,14 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
                 <div class="row">
-                    <div class="col-lg-5 mt-4">
+                    <div class="col-lg-4 mt-4">
                         {{>message}}
                         <div class="card">
                             <div class="card-header font-weight-bold">
-                                <h5 class="text-center">Ingresar Elemento</h5>
+                                <h4 class="text-center m-auto">Ingresar Elemento</h4>
                             </div>
                             <div class="card-body">
-                                <form id="elementForm" action="javascript: listElement()" class="form-group p-2">
+                                <form id="elementForm" action="javascript: listElement()" class="form-group">
                                     <h5>Nombre Elemento</h5>
                                     <select name="select" id="nombreElementoEntrada" class="form-control elementSelect" required>
                                         <option value="" selected hidden>-- Seleccionar elemento --</option>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         </div>
-                    <div class="col-lg-7 mt-4">
+                    <div class="col-lg-8 mt-4">
                         <form action="/menuCompras/insertElement" method="post" class="form-group">                            
                             <table id="elementsTable" class="table table-bordered  col-12 bg-light" cellspacing="0" width="100%">
                                 <thead class="font-weight-bold"><tr><th>Id</th><th>Nombre</th><th>Cantidad</th><th>NIT</th><th>Proveedor</th><th>V. Unitario</th><th>V. Total</th></tr></thead>

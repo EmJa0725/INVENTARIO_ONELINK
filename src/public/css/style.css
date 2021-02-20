@@ -301,7 +301,15 @@ body{
   }
 
   /* Formulario modulos */
-   
+
+  .inventoryForm .form-group { 
+    margin-bottom: 0px;
+  }
+
+  .inventoryForm .form-row {
+    margin-top: 10px;
+  }
+
   .form-control-dark {
     color: #fff;
     background-color: rgba(255, 255, 255, .1);
@@ -312,6 +320,7 @@ body{
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
   }
+
   nav h1{
     font-family: 'Kumbh Sans', sans-serif;
     font-size: 30px;
@@ -320,16 +329,23 @@ body{
     text-shadow: 3px 3px 3px  #86b5e0;      
     margin-top: 10px;
   }
+
   #descriptionMod{
     font-weight: bold;
     margin-top: 10px;
   }
+
   .sendUserForm{
     background-color: rgb(67, 144, 207);
     border-color: rgb(112, 161, 201);
     /*margin-top: 15px;*/
     font-size: 1.25em;
   }
+
+  form h5 {
+    font-size: 12px;
+  }
+
   h5{
     text-align: left;
     padding: 10px 0px 10px 0px;
