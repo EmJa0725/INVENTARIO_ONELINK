@@ -76,20 +76,23 @@ router.post('/outputElement/return', isLoggedIn, protectIndex, async(req, res) =
                 Cantidad,
                 fechaMovimiento
         }  
-        console.log(elementRow);  
-        //sum stock
-        const sum = await db.query('UPDATE Elemento SET Stock = Stock + ? WHERE IdElemento= ?;',[elementRow.Cantidad,elementRow.IdElemento]);
+        console.log(elementRow);
+
+        if (elementRow.Tipo == 'Devolucion') {
+            //sum stock
+            const sum = await db.query('UPDATE Elemento SET Stock = Stock + ? WHERE IdElemento= ?;', [elementRow.Cantidad, elementRow.IdElemento]);    
+        } 
         //subtract element to employee
-        const res = await db.query('UPDATE asignacion_elemento SET Cantidad = Cantidad - ? WHERE FoEmpleado = ? AND FoElemento= ?;',[elementRow.Cantidad,elementRow.IdEmpleado,elementRow.IdElemento]);
+        const res = await db.query('UPDATE asignacion_elemento SET Cantidad = Cantidad - ? WHERE FoEmpleado = ? AND FoElemento= ?;', [elementRow.Cantidad, elementRow.IdEmpleado, elementRow.IdElemento]);
         //Register Item in movements
         const movement = await db.query('INSERT INTO movimiento_inventario(TipoMovimiento,FoElemento,FoArea,FoEmpleado,Cantidad,Fecha) VALUES(?,?,?,?,?,?)', Object.values(elementRow));
         //remove item to employee
-        const verifyelementIsZero = await db.query("SELECT EXISTS(SELECT * FROM asignacion_elemento WHERE FoEmpleado = ? AND Cantidad = 0) as verify;",[elementRow.IdEmpleado]);
+        const verifyelementIsZero = await db.query("SELECT EXISTS(SELECT * FROM asignacion_elemento WHERE FoEmpleado = ? AND Cantidad = 0) as verify;", [elementRow.IdEmpleado]);
         const elementIsZero = verifyelementIsZero[0].verify;
-        if (elementIsZero){
-            const remove = await db.query("DELETE FROM asignacion_elemento WHERE FoEmpleado = ? AND FoElemento = ?;",[elementRow.IdEmpleado,elementRow.IdElemento]);   
+        if (elementIsZero) {
+            const remove = await db.query("DELETE FROM asignacion_elemento WHERE FoEmpleado = ? AND FoElemento = ?;", [elementRow.IdEmpleado, elementRow.IdElemento]);
             console.log('Element removed');
-        }
+        }       
     }
     req.flash('success','Devolucion ejecutada correctamente');
     res.redirect('/menuInventario/outputElement');
@@ -108,6 +111,11 @@ router.get('/listOutput', isLoggedIn, protectIndex, async(req, res) => {
 router.get('/listReturn', isLoggedIn, protectIndex, async(req, res) => {
     const returnRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'DEVOLUCION' ORDER BY IdMovimiento ;");  
     res.render('menuInventario/listReturn',{returnRows});
+});
+
+router.get('/listRemoved', isLoggedIn, protectIndex, async(req, res) => {
+    const removedRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'BAJA' ORDER BY IdMovimiento ;");  
+    res.render('menuInventario/listRemoved',{removedRows});
 });
 
 router.get('/listAreaElement', isLoggedIn, protectIndex, async(req, res) => {

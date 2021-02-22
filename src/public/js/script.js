@@ -815,6 +815,7 @@ let codArea = [];
 let nombreArea = [];
 let codEmpleado = [];
 let nombreEmpleado = [];
+let estadoElemento = [];
 
 function listElement(){
   
@@ -845,8 +846,7 @@ function listElement(){
  // document.getElementById('profesorAsignatura').value=''; 
 }
 
-function listOutputElement(){
-  
+function listOutputElement(){  
   tipoMovimiento[x] = $(".tipoMovimiento:checked").val();
   nombreElemento[x] = $("#nombreElementoSalida :selected").text();
   codElemento[x] = document.getElementById("codigoElemento").value;
@@ -854,7 +854,7 @@ function listOutputElement(){
   codArea[x] = document.getElementById("codigoArea").value;
   nombreArea[x] = $("#nombreAreaSalida :selected").text();
   codEmpleado[x]= document.getElementById("codigoEmpleado").value;
-  nombreEmpleado[x] = $("#nombreEmpleadoSalida :selected").text();   
+  nombreEmpleado[x] = $("#nombreEmpleadoSalida :selected").text();  
   
   var table = $("#outputTable").DataTable();
   table.row.add([
@@ -876,7 +876,7 @@ function listOutputElement(){
 }
 function listReturnElement(){
   
-  tipoMovimiento[x] = $(".tipoMovimiento:checked").val();
+  
   nombreArea[x] = $("#nombreAreaDevolucion :selected").text();
   codArea[x] = document.getElementById("codigoArea").value;
   nombreEmpleado[x] = $("#nombreEmpleadoDevolucion :selected").text();
@@ -884,6 +884,8 @@ function listReturnElement(){
   nombreElemento[x] = $("#nombreElementoDevolucion :selected").text();
   codElemento[x] = document.getElementById("codigoElemento").value;
   cantidad[x] = document.getElementById('cantidadDevolucion').value;
+  estadoElemento[x] = $('#estadoElemento :selected').text(); 
+  tipoMovimiento[x] = (estadoElemento[x] == 'Bueno') ? $(".tipoMovimiento:checked").val() : 'Baja';
   
   var table = $("#outputTable").DataTable();
   table.row.add([
@@ -915,6 +917,7 @@ function resetReturnForm(){
   $('.elementSelect').val("").change();
   $('.areaSelect').val("").change();
   $('#cantidadDevolucion').val('');
+  $('.stateSelect').val("").change();
 }
 
 function tableJson(){
