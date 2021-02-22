@@ -68,13 +68,13 @@ body{
 .socialmediaicons{
     font-size: 30px;
 }
-.fa {
+.fa, .fab {
     padding: 10px;
     text-align: center;
     text-decoration: none;
     transition: 0.5s;
 }
-.fa:hover {
+.fa:hover, .fab:hover {
     background-color: rgb(139, 152, 209);
     text-decoration: none;
 }
@@ -203,6 +203,10 @@ body{
     width: 16px;
     height: 16px;
     vertical-align: text-bottom;
+  }
+
+  #dropdownMenuButton:hover { 
+    background-color: #007bff;
   }
 
   .dropdown:hover>.dropdown-menu {

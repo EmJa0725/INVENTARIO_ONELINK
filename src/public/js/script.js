@@ -190,21 +190,30 @@ $(document).ready(function () {
         text: '<i class="fas fa-file-excel"></i>',
         title: 'REPORTE USUARIOS',
         tittleAttr: 'Exportar a Excel',
-        className: 'btn btn-success'
+        className: 'btn btn-success',
+        exportOptions: {
+          columns: [0,1,2,3,4,5]
+        }
       },
       {
         extend: 'pdfHtml5',
         text: '<i class="fas fa-file-pdf"></i>',
         title: 'REPORTE USUARIOS',
         tittleAttr: 'Exportar a PDF',
-        className: 'btn btn-danger'
+        className: 'btn btn-danger',
+        exportOptions: {
+          columns: [0,1,2,3,4,5]
+        }
       },
       {
         extend: 'print',
         text: '<i class="fas fa-print"></i>',
         title: 'REPORTE USUARIOS',
         tittleAttr: 'Imprimir',
-        className: 'btn btn-info'
+        className: 'btn btn-info',
+        exportOptions: {
+          columns: [0,1,2,3,4,5]
+        }
       }
     ],
     "info": false
@@ -227,7 +236,7 @@ $(document).ready(function () {
       "paginate": {
         "previous": "Anterior",
         "next": "Siguiente"
-      }   
+      }  
     },
     dom: "<'row'<'col-md-6'l><'col-md-6'f>>rtiBp",
     buttons: [
@@ -237,21 +246,30 @@ $(document).ready(function () {
         text: '<i class="fas fa-file-excel"></i>',
         title: 'REPORTE AREAS',
         tittleAttr: 'Exportar a Excel',
-        className: 'btn btn-success'
+        className: 'btn btn-success',
+        exportOptions: {
+          columns: [0,1,2]
+        }
       },
       {
         extend: 'pdfHtml5',
         text: '<i class="fas fa-file-pdf"></i>',
         title: 'REPORTE AREAS',
         tittleAttr: 'Exportar a PDF',
-        className: 'btn btn-danger'
+        className: 'btn btn-danger',
+        exportOptions: {
+          columns: [0,1,2]
+        }
       },
       {
         extend: 'print',
         text: '<i class="fas fa-print"></i>',
         title: 'REPORTE AREAS',
         tittleAttr: 'Imprimir',
-        className: 'btn btn-info'
+        className: 'btn btn-info',
+        exportOptions: {
+          columns: [0,1,2]
+        }
       }
     ],
     "info": false
@@ -374,21 +392,30 @@ $(document).ready(function () {
         text: '<i class="fas fa-file-excel"></i>',
         title: 'REPORTE PROVEEDORES',
         tittleAttr: 'Exportar a Excel',
-        className: 'btn btn-success'
+        className: 'btn btn-success',
+        exportOptions: {
+          columns: [0,1,2,3,4]
+        }
       },
       {
         extend: 'pdfHtml5',
         text: '<i class="fas fa-file-pdf"></i>',
         title: 'REPORTE PROVEEDORES',
         tittleAttr: 'Exportar a PDF',
-        className: 'btn btn-danger'
+        className: 'btn btn-danger',
+        exportOptions: {
+          columns: [0,1,2,3,4]
+        }
       },
       {
         extend: 'print',
         text: '<i class="fas fa-print"></i>',
         title: 'REPORTE PROVEEDORES',
         tittleAttr: 'Imprimir',
-        className: 'btn btn-info'
+        className: 'btn btn-info',
+        exportOptions: {
+          columns: [0,1,2,3,4]
+        }
       }
     ],
     "info": false
@@ -421,21 +448,30 @@ $(document).ready(function () {
         text: '<i class="fas fa-file-excel"></i>',
         title: 'REPORTE ELEMENTOS',
         tittleAttr: 'Exportar a Excel',
-        className: 'btn btn-success'
+        className: 'btn btn-success',
+        exportOptions: {
+          columns: [0,1,2]
+        }
       },
       {
         extend: 'pdfHtml5',
         text: '<i class="fas fa-file-pdf"></i>',
         title: 'REPORTE ELEMENTOS',
         tittleAttr: 'Exportar a PDF',
-        className: 'btn btn-danger'
+        className: 'btn btn-danger',
+        exportOptions: {
+          columns: [0,1,2]
+        }
       },
       {
         extend: 'print',
         text: '<i class="fas fa-print"></i>',
         title: 'REPORTE ELEMENTOS',
         tittleAttr: 'Imprimir',
-        className: 'btn btn-info'
+        className: 'btn btn-info',
+        exportOptions: {
+          columns: [0,1,2]
+        }
       }
     ],
     "info": false
