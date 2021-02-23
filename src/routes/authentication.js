@@ -91,6 +91,11 @@ router.get('/indexInventario', isLoggedIn, protectIndex, async(req,res) => {
     assignedElements = assignedElementsQuery[0].assigned;
     elementsValue = totalElementsValueQuery[0].total;
     totalAssigned = totalAssignedQuery[0].total;
+
+    const currencyFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+    elementsValue = currencyFormat.format(elementsValue);
+    totalAssigned = currencyFormat.format(totalAssigned);
+
     res.render('indexInventario',{stockAlert,countElement,assignedElements,elementsValue,totalAssigned});
 });
 
@@ -101,7 +106,10 @@ router.get('/indexCompras', isLoggedIn, protectIndex, async(req,res) => {
     countElement = countElementQuery[0].count;
     countProvider = countProviderQuery[0].count;
     elementsValue = totalElementsValueQuery[0].total;
-    console.log(elementsValue);
+    
+    const currencyFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+    elementsValue = currencyFormat.format(elementsValue);
+
     res.render('indexCompras',{countElement,countProvider,elementsValue});
 });
 
