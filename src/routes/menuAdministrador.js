@@ -84,9 +84,18 @@ router.post('/editUser/:id', isLoggedIn, protectIndex,  async(req,res) =>{
 router.get('/deleteUser/:id', isLoggedIn, protectIndex,  async(req,res) =>{
     const {id} = req.params;
     console.log(id);
-    await db.query('DELETE FROM empleado WHERE IdEmpleado=?',[id]);
+    
+
+    try{
+        await db.query('DELETE FROM empleado WHERE IdEmpleado=?',[id]);
     req.flash('success','Usuario Eliminado');
     res.redirect('/menuAdministrador/listUser');
+    }catch(e){        
+        req.flash('message','No se puede eliminar usuario ya que tiene elementos asignados');
+        res.redirect('/menuAdministrador/listUser');
+    }    
+    
+
 });
 
 //------------------ AREA ROUTES ----------------------//

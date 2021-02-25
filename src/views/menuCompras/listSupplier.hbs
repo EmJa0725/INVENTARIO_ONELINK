@@ -1,101 +1,103 @@
 <div class="container-fluid">
     <div class="row mt-4">
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="col-6 mx-auto">{{>message}}</div>
+            <div class="col-4 mx-auto message">{{>message}}</div>
             <div class="table-responsive-lg">
-              <table id="supplierTable" class="table table-sm table-striped table-bordered mt-4 bg-white">
-                <thead style="background-color: rgb(92, 135, 230); font-size: 1.15rem;">
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Direccion</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Correo</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{#each supplierRows}}
-                  <tr>
-                    <th scope="row" id="idCompra">{{NITProveedor}}</th>
-                    <td>{{NombreProveedor}}</td>
-                    <td>{{DireccionProveedor}}</td>
-                    <td>{{TelefonoProveedor}}</td>
-                    <td>{{CorreoProveedor}}</td>    
-                     <td id="editButton" title="Editar Proveedor"><a id="editSupplier" href="" 
-                        data-toggle="modal" data-target="#editSupplierModal" style="display: block;">
-                        <div data-feather="edit" class="text-primary"></div>    
-                    </td> 
-                    <td id="deleteButton" title="Borrar Proveedor"><a href="" 
-                        data-toggle="modal" data-target="#deleteSupplierModal" style="display: block;"
-                        onclick="fillSupplierModal('{{NombreProveedor}}','{{NITProveedor}}')">
-                        <div data-feather="delete" class="text-danger"></div>    
-                    </td>                
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
+                <table id="supplierTable" class="table table-sm table-striped table-bordered mt-4 bg-white">
+                    <thead style="background-color: rgb(92, 135, 230); font-size: 1.15rem;">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each supplierRows}}
+                        <tr>
+                            <th scope="row" id="idCompra">{{NITProveedor}}</th>
+                            <td>{{NombreProveedor}}</td>
+                            <td>{{DireccionProveedor}}</td>
+                            <td>{{TelefonoProveedor}}</td>
+                            <td>{{CorreoProveedor}}</td>
+                            <td id="editButton" title="Editar Proveedor"><a id="editSupplier" href=""
+                                    data-toggle="modal" data-target="#editSupplierModal" style="display: block;">
+                                    <div data-feather="edit" class="text-primary"></div>
+                            </td>
+                            <td id="deleteButton" title="Borrar Proveedor"><a href="" data-toggle="modal"
+                                    data-target="#deleteSupplierModal" style="display: block;"
+                                    onclick="fillSupplierModal('{{NombreProveedor}}','{{NITProveedor}}')">
+                                    <div data-feather="delete" class="text-danger"></div>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>
 </div>
 
- <!-- Modal Edit supplier -->
-    <div class="modal fade" id="editSupplierModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title p-0" id="exampleModalLongTitle">Editar Proveedor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="modalBody">
-                    <form action="editSupplier" method="POST">
-                        <div class="form-group">
-                            <input class="form-control d-none" type="text" name="idProveedor" id="idProveedor">
-                            <label for="nProveedor" class="float-left">Nombre</label>
-                            <input class="form-control" type="text" name="nProveedor" id="nProveedor" autofocus="autofocus"
-                                required>
-                            <label for="dProveedor" class="float-left mt-2">Direccion</label>
-                            <input class="form-control" type="text" name="dProveedor" id="dProveedor" required>
-                            <label for="tProveedor" class="float-left mt-2">Telefono</label>
-                            <input class="form-control" type="tel" name="tProveedor" id="tProveedor" required>
-                            <label for="cProveedor" class="float-left mt-2">Correo</label>
-                            <input class="form-control" type="email" name="cProveedor" id="cProveedor" required>
-                        </div>
-                    
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="backEditModal" data-dismiss="modal">Volver</button>
-                            <button type="submit" class="btn btn-primary" id="EditSupplier">Editar</button>
-                        </div>
-                    </form>
+<!-- Modal Edit supplier -->
+<div class="modal fade" id="editSupplierModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title p-0" id="exampleModalLongTitle">Editar Proveedor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-    </div>
-    <!-- Modal -->
+            <div class="modal-body" id="modalBody">
+                <form action="editSupplier" method="POST">
+                    <div class="form-group">
+                        <input class="form-control d-none" type="text" name="idProveedor" id="idProveedor">
+                        <label for="nProveedor" class="float-left">Nombre</label>
+                        <input class="form-control" type="text" name="nProveedor" id="nProveedor" autofocus="autofocus"
+                            required>
+                        <label for="dProveedor" class="float-left mt-2">Direccion</label>
+                        <input class="form-control" type="text" name="dProveedor" id="dProveedor" required>
+                        <label for="tProveedor" class="float-left mt-2">Telefono</label>
+                        <input class="form-control" type="tel" name="tProveedor" id="tProveedor" required>
+                        <label for="cProveedor" class="float-left mt-2">Correo</label>
+                        <input class="form-control" type="email" name="cProveedor" id="cProveedor" required>
+                    </div>
 
-    <!-- Modal delete supplier -->
-    <div class="modal fade" id="deleteSupplierModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title p-0" id="exampleModalLongTitle">Confirmar accion</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="deleteModalBody">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="backDeleteModal" data-dismiss="modal">Volver</button>
-                    <button type="submit" class="btn btn-danger" id="deleteSupplier" onclick="confirmDeleteSupplier();">Borrar</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="backEditModal" data-dismiss="modal">Volver</button>
+                <button type="submit" class="btn btn-primary" id="EditSupplier">Editar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal delete supplier -->
+<div class="modal fade" id="deleteSupplierModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title p-0" id="exampleModalLongTitle">Confirmar accion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="backDeleteModal"
+                    data-dismiss="modal">Volver</button>
+                <button type="submit" class="btn btn-danger" id="deleteSupplier"
+                    onclick="confirmDeleteSupplier();">Borrar</button>
             </div>
         </div>
     </div>
-    <!-- Modal -->
+</div>
+<!-- Modal -->

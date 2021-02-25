@@ -1,93 +1,95 @@
 <div class="container-fluid">
     <div class="row mt-4">
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="col-6 mx-auto">{{>message}}</div>
+            <div class="col-4 mx-auto message">{{>message}}</div>
             <div class="table-responsive-lg">
-              <table id="elementTable" class="table table-sm table-striped table-bordered mt-4 bg-white">
-                <thead style="background-color: rgb(92, 135, 230); font-size: 1.15rem;">
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Precio unitario</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{#each elementRows}}
-                  <tr>
-                    <th scope="row" id="idCompra">{{IdElemento}}</th>
-                    <td>{{NombreElemento}}</td>
-                    <td>{{PrecioUnitario}}</td>   
-                     <td id="editButton" title="Editar Elemento"><a id="editElement" href="" 
-                        data-toggle="modal" data-target="#editElementModal" style="display: block;">
-                        <div data-feather="edit" class="text-primary"></div>    
-                    </td> 
-                    <td id="deleteButton" title="Borrar Elemento"><a href="" 
-                        data-toggle="modal" data-target="#deleteElementModal" style="display: block;"
-                        onclick="fillElementModal('{{NombreElemento}}','{{IdElemento}}')">
-                        <div data-feather="delete" class="text-danger"></div>    
-                    </td>                
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
+                <table id="elementTable" class="table table-sm table-striped table-bordered mt-4 bg-white">
+                    <thead style="background-color: rgb(92, 135, 230); font-size: 1.15rem;">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio unitario</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each elementRows}}
+                        <tr>
+                            <th scope="row" id="idCompra">{{IdElemento}}</th>
+                            <td>{{NombreElemento}}</td>
+                            <td>{{PrecioUnitario}}</td>
+                            <td id="editButton" title="Editar Elemento"><a id="editElement" href="" data-toggle="modal"
+                                    data-target="#editElementModal" style="display: block;">
+                                    <div data-feather="edit" class="text-primary"></div>
+                            </td>
+                            <td id="deleteButton" title="Borrar Elemento"><a href="" data-toggle="modal"
+                                    data-target="#deleteElementModal" style="display: block;"
+                                    onclick="fillElementModal('{{NombreElemento}}','{{IdElemento}}')">
+                                    <div data-feather="delete" class="text-danger"></div>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>
 </div>
 
- <!-- Modal Edit element -->
-    <div class="modal fade" id="editElementModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title p-0" id="exampleModalLongTitle">Editar Elemento</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="modalBody">
-                    <form action="editElement" method="POST">
-                        <div class="form-group">
-                            <input class="form-control d-none" type="text" name="idElemento" id="idElemento">
-                            <label for="nElemento" class="float-left">Nombre</label>
-                            <input class="form-control" type="text" name="nElemento" id="nElemento" autofocus="autofocus"
-                                required>
-                            <label for="pElemento" class="float-left mt-2">Precio</label>
-                            <input class="form-control" type="tel" name="pElemento" id="pElemento" required>
-                        </div>
-                    
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="backEditModal" data-dismiss="modal">Volver</button>
-                            <button type="submit" class="btn btn-primary" id="EditSupplier">Editar</button>
-                        </div>
-                    </form>
+<!-- Modal Edit element -->
+<div class="modal fade" id="editElementModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title p-0" id="exampleModalLongTitle">Editar Elemento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-    </div>
-    <!-- Modal -->
+            <div class="modal-body" id="modalBody">
+                <form action="editElement" method="POST">
+                    <div class="form-group">
+                        <input class="form-control d-none" type="text" name="idElemento" id="idElemento">
+                        <label for="nElemento" class="float-left">Nombre</label>
+                        <input class="form-control" type="text" name="nElemento" id="nElemento" autofocus="autofocus"
+                            required>
+                        <label for="pElemento" class="float-left mt-2">Precio</label>
+                        <input class="form-control" type="tel" name="pElemento" id="pElemento" required>
+                    </div>
 
-    <!-- Modal delete Element -->
-    <div class="modal fade" id="deleteElementModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title p-0" id="exampleModalLongTitle">Confirmar accion</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="deleteModalBody">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="backDeleteModal" data-dismiss="modal">Volver</button>
-                    <button type="submit" class="btn btn-danger" id="deleteSupplier" onclick="confirmDeleteElement();">Borrar</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="backEditModal" data-dismiss="modal">Volver</button>
+                <button type="submit" class="btn btn-primary" id="EditSupplier">Editar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal delete Element -->
+<div class="modal fade" id="deleteElementModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title p-0" id="exampleModalLongTitle">Confirmar accion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="backDeleteModal"
+                    data-dismiss="modal">Volver</button>
+                <button type="submit" class="btn btn-danger" id="deleteSupplier"
+                    onclick="confirmDeleteElement();">Borrar</button>
             </div>
         </div>
     </div>
-    <!-- Modal -->
+</div>
+<!-- Modal -->

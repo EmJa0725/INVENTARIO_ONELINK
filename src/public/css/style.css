@@ -9,6 +9,13 @@ body{
     background-size: cover;
 }
 
+.message {
+  z-index: 200;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+
 /* Loader */
 .loader-wrapper {
   width: 100%;
