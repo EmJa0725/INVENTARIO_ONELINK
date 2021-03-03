@@ -82,7 +82,7 @@ router.get('/indexAdministrador/charts', isLoggedIn, protectIndex ,async(req,res
 });
 
 router.get('/indexInventario', isLoggedIn, protectIndex, async(req,res) => {
-    const stockAlert = await db.query('select * from elemento where stock < 5;')
+    const stockAlert = await db.query('SELECT * FROM elemento WHERE stock < 5;')
     const countElementQuery = await db.query("SELECT COUNT(IdElemento) AS count from Elemento;");
     const assignedElementsQuery = await db.query("SELECT COUNT(idAsignado) as assigned FROM asignacion_elemento;");
     const totalElementsValueQuery = await db.query("SELECT SUM(PrecioUnitario*Stock) AS total FROM elemento;");

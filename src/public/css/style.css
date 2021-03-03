@@ -410,6 +410,11 @@ body{
     background-color: rgb(233, 191, 175);
   } 
 
+  /* Request elements table */
+  #requestTable tr td:nth-child(1){
+    background-color: rgb(175, 199, 223);
+  } 
+
   
   /*----------------------Seach box selection -------------------*/
 

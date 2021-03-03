@@ -808,7 +808,7 @@ $(document).ready(function () {
 
 
 
-  $('#outputTable').DataTable({
+  $('#outputTable , #requestTable').DataTable({
     "scrollY": "400px",
     "scrollCollapse": true,
     "language": {  
@@ -854,7 +854,6 @@ let nombreEmpleado = [];
 let estadoElemento = [];
 
 function listElement(){
-  
   nombreElemento[x] = $(".elementSelect :selected").text();
   codElemento[x] = document.getElementById("codigoElemento").value;
   cantidad[x] = document.getElementById('cantidadEntrada').value;
@@ -910,9 +909,8 @@ function listOutputElement(){
  // document.getElementById('nombreAsignatura').value='';
  // document.getElementById('profesorAsignatura').value=''; 
 }
-function listReturnElement(){
-  
-  
+
+function listReturnElement(){ 
   nombreArea[x] = $("#nombreAreaDevolucion :selected").text();
   codArea[x] = document.getElementById("codigoArea").value;
   nombreEmpleado[x] = $("#nombreEmpleadoDevolucion :selected").text();
@@ -942,18 +940,42 @@ function listReturnElement(){
  // document.getElementById('profesorAsignatura').value='';
 }
 
-function resetOutputForm(){
+function listRequestElement(){  
+  nombreElemento[x] = $("#nombreElementoSolicitud :selected").text();
+  codElemento[x] = document.getElementById("codigoElemento").value;
+  cantidad[x] = document.getElementById('cantidadSolicitud').value; 
+  
+  var table = $("#requestTable").DataTable();
+  table.row.add([
+    codElemento[x],
+    nombreElemento[x],
+    cantidad[x],
+  ]).draw();
+
+  resetRequestForm();
+  //$('#nombreEmpleado').val("").change();
+  x=x+1;  
+ // document.getElementById('nombreAsignatura').value='';
+ // document.getElementById('profesorAsignatura').value=''; 
+}
+
+function resetOutputForm() {
   $('.elementForm')[0].reset();
   $('.elementSelect').val("").change();
   $('.areaSelect').val("").change();
 }
 
-function resetReturnForm(){
+function resetReturnForm() {
   $('.elementForm')[0].reset();
   $('.elementSelect').val("").change();
   $('.areaSelect').val("").change();
   $('#cantidadDevolucion').val('');
   $('.stateSelect').val("").change();
+}
+
+function resetRequestForm() {
+  $('.elementForm')[0].reset();
+  $('.elementSelect').val("").change();
 }
 
 function tableJson(){
@@ -972,6 +994,14 @@ function tableOutputJson(){
   console.log(tableDataFormat);
 }
 
+function tableRequestJson(){
+  var tableData = $('#requestTable').tableToJSON();
+  var input = document.getElementById('tableInput');  
+  tableDataFormat = JSON.stringify(tableData);
+  input.value = tableDataFormat;
+  console.log(tableDataFormat);
+}
+
 // Clear Table
 function clearTable(){
   var table = $('#elementsTable').DataTable();
@@ -983,6 +1013,14 @@ function clearTable(){
 
 function clearOutputTable(){
   var table = $('#outputTable').DataTable();
+  table
+    .clear()
+    .draw();
+  console.log('Limpiar tabla');
+}
+
+function clearRequestTable(){
+  var table = $('#requestTable').DataTable();
   table
     .clear()
     .draw();

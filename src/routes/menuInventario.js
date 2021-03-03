@@ -137,4 +137,33 @@ router.get('/listAreaElement/empleado/:idEmpleado', isLoggedIn, protectIndex, as
     res.send(JSON.stringify(activeElementsQuery));
 });
 
+router.get('/requestElement' , isLoggedIn , protectIndex, async(req,res) => {
+    const listElementQuery = await db.query("SELECT IdElemento,NombreElemento,Stock from Elemento");
+    const stockAlert = await db.query('SELECT * FROM elemento WHERE stock < 5;')
+    res.render('menuInventario/requestElement', {listElementQuery,stockAlert})
+})
+
+router.post('/requestElement' , isLoggedIn , protectIndex, async(req,res) => {
+    const reqBody = req.body
+    console.log(req.body);
+    const elementReq = reqBody.tableInput;
+    const elementReqJSON = JSON.parse(elementReq);
+    console.log(elementReqJSON);
+    for (row in elementReqJSON){
+        var FechaSolicitud = new Date();
+        const {IdElemento,Elemento,Cantidad} = elementReqJSON[row];
+        const elementRow = {
+                FoElemento : IdElemento,
+                Cantidad,
+                FechaSolicitud
+        }
+        console.log(elementRow);
+        const request = await db.query('INSERT INTO solicitud_elemento SET ?', [elementRow]);
+        console.log(request);     
+    }     
+    req.flash('success','Solicitud realizada correctamente');
+    res.redirect('/menuInventario/requestElement');  
+})
+
+
 module.exports = router;

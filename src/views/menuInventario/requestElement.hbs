@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+            <div class="row">
+                <div class="col-lg-4 mt-4">
+                    {{>message}}
+                    <div class="card inventoryForm">
+                        <div class="card-header font-weight-bold">
+                            <h4 class="text-center m-auto">Solicitud elementos</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="requestForm" action="javascript: listRequestElement()" class="form-group elementForm">
+                                <h5>Nombre Elemento</h5>
+                                <select name="select" id="nombreElementoSolicitud" class="form-control elementSelect" required>
+                                    <option value="" selected hidden>-- Seleccionar elemento --</option>
+                                    {{#each listElementQuery}}
+                                    <option data-stock="{{Stock}}" value='{{IdElemento}}'>{{NombreElemento}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <h5>Cod. Elemento</h5>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="codigoElemento" id="codigoElemento" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <h5>Cantidad</h5>
+                                        <input type="number" name="cantidad" id="cantidadSolicitud" placeholder="Cantidad" class="form-control" min="1"
+                                            max="" required>
+                                    </div>
+                                    <div class="form-group col-md-2"></div>
+                                    <div class="form-group col-md-5">
+                                        <h5 style="color: red; font-weight: bold;">Stock</h5>
+                                        <input type="text" name="stock" id="stockElemento" class="form-control" readonly required>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Agregar" class="btn btn-primary float-right mt-3 mb-1" style="font-size:1.3rem;">
+                            </form>               
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <div class="card-header font-weight-bold text-danger">Alerta stock</div>
+                        <div class="card-body text-primary">
+                            <div class="card-text">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Stock</th>
+                                        </tr>
+                                        {{#each stockAlert}}
+                                        <tr>
+                                            <td>{{NombreElemento}}</td>
+                                            <td>{{Stock}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-lg-8 mt-4">
+                    <form id="formTable" action="/menuInventario/requestElement" method="post" class="form-group">
+                        <table id="requestTable" class="table table-bordered  col-12 bg-light" cellspacing="0"
+                            width="100%">
+                            <thead class="font-weight-bold">
+                                <tr>
+                                    <th>Id<span class="d-none">Elemento</span></th>
+                                    <th>Elemento</th>
+                                    <th>Cantidad</th>                                   
+                                </tr>
+                            </thead>
+                            <tbody id='requestTableBody'>
+                            </tbody>
+                        </table>
+                        <div>
+                            <input type="hidden" name="tableInput" id="tableInput">
+                        </div>
+                        <input type="submit" value="Realizar solicitud" onclick="tableRequestJson();"
+                            class="btn btn-primary mb-3">
+                        <button type="button" onclick="clearRequestTable();" class="btn btn-danger mb-3">Limpiar tabla</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- </div> -->
+        </main>
+    </div>
+</div>
