@@ -104,17 +104,17 @@ router.get('/listInventory', isLoggedIn, protectIndex, async(req, res) => {
 });
 
 router.get('/listOutput', isLoggedIn, protectIndex, async(req, res) => {
-    const outputRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'SALIDA' ORDER BY IdMovimiento ;");
+    const outputRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha, DATE_FORMAT(fecha,'%Y%m%d') as FechaFormat FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'SALIDA' ORDER BY IdMovimiento ;");
     res.render('menuInventario/listOutput', { outputRows });
 });
 
 router.get('/listReturn', isLoggedIn, protectIndex, async(req, res) => {
-    const returnRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'DEVOLUCION' ORDER BY IdMovimiento ;");  
+    const returnRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha, DATE_FORMAT(fecha,'%Y%m%d') as FechaFormat FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'DEVOLUCION' ORDER BY IdMovimiento ;");  
     res.render('menuInventario/listReturn',{returnRows});
 });
 
 router.get('/listRemoved', isLoggedIn, protectIndex, async(req, res) => {
-    const removedRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'BAJA' ORDER BY IdMovimiento ;");  
+    const removedRows = await db.query("SELECT IdMovimiento,TipoMovimiento,area.NombreArea,empleado.NombreEmpleado,empleado.ApellidoEmpleado,elemento.NombreElemento,Cantidad,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha, DATE_FORMAT(fecha,'%Y%m%d') as FechaFormat FROM movimiento_inventario INNER JOIN elemento ON movimiento_inventario.FoElemento = elemento.IdElemento INNER JOIN empleado ON movimiento_inventario.FoEmpleado = empleado.IdEmpleado INNER JOIN area ON movimiento_inventario.FoArea = area.IdArea WHERE tipoMovimiento = 'BAJA' ORDER BY IdMovimiento ;");  
     res.render('menuInventario/listRemoved',{removedRows});
 });
 

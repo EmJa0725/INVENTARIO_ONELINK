@@ -47,7 +47,7 @@ router.get('/listUser', isLoggedIn, protectIndex,  async(req, res) => {
 
 router.get('/editUser/:id', isLoggedIn, protectIndex, async (req,res) =>{
     const {id} = req.params;    
-    const userQuery = await db.query("SELECT IdEmpleado,NombreEmpleado,ApellidoEmpleado,SexoEmpleado,DATE_FORMAT(fNacimientoEmpleado,'%Y-%m-%d') as fNacimientoEmpleado,CorreoEmpleado,TelefonoEmpleado,DireccionEmpleado,CargoEmpleado,area.NombreArea,FoArea,Username,Password FROM Empleado INNER JOIN Area ON Empleado.FoArea = Area.IdArea WHERE IdEmpleado = ?;",[id]);
+    const userQuery = await db.query("SELECT IdEmpleado,NombreEmpleado,ApellidoEmpleado,SexoEmpleado,DATE_FORMAT(fNacimientoEmpleado,'%Y-%m-%d') as fNacimientoEmpleado, DATE_FORMAT(fNacimientoEmpleado,'%Y%m%d') as FechaFormat ,CorreoEmpleado,TelefonoEmpleado,DireccionEmpleado,CargoEmpleado,area.NombreArea,FoArea,Username,Password FROM Empleado INNER JOIN Area ON Empleado.FoArea = Area.IdArea WHERE IdEmpleado = ?;",[id]);
     console.log(userQuery[0]);
     const listAreaQuery = await db.query("SELECT IdArea,NombreArea from Area");
     res.render('menuAdministrador/editUser',{userToEdit: userQuery[0],listAreaQuery});

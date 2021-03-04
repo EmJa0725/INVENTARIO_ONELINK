@@ -99,7 +99,7 @@ router.post('/editElement',isLoggedIn, protectIndex,async(req,res) =>{
 });
 
 router.get('/listMovement', isLoggedIn, protectIndex, async(req, res) => {
-    const movementRows = await db.query("SELECT IdCompra,proveedor.NombreProveedor,elemento.NombreElemento,Cantidad,ValorUnitario,TotalCompra,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha FROM compra INNER JOIN elemento ON Compra.FoElemento = elemento.IdElemento  INNER JOIN proveedor ON compra.FoProveedor = proveedor.NITProveedor ORDER BY IdCompra ;");  
+    const movementRows = await db.query("SELECT IdCompra,proveedor.NombreProveedor,elemento.NombreElemento,Cantidad,ValorUnitario,TotalCompra,DATE_FORMAT(fecha,'%d-%m-%Y') as Fecha, DATE_FORMAT(fecha,'%Y%m%d') as FechaFormat FROM compra INNER JOIN elemento ON Compra.FoElemento = elemento.IdElemento  INNER JOIN proveedor ON compra.FoProveedor = proveedor.NITProveedor ORDER BY IdCompra ;");  
     res.render('menuCompras/listMovement',{movementRows});
 });
 
