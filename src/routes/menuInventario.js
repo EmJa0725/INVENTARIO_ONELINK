@@ -141,7 +141,7 @@ router.get('/requestElement' , isLoggedIn , protectIndex, async(req,res) => {
     const listElementQuery = await db.query("SELECT IdElemento,NombreElemento,Stock from Elemento");
     const stockAlert = await db.query('SELECT * FROM elemento WHERE stock < 5;')
     res.render('menuInventario/requestElement', {listElementQuery,stockAlert})
-})
+});
 
 router.post('/requestElement' , isLoggedIn , protectIndex, async(req,res) => {
     const reqBody = req.body
@@ -163,7 +163,12 @@ router.post('/requestElement' , isLoggedIn , protectIndex, async(req,res) => {
     }     
     req.flash('success','Solicitud realizada correctamente');
     res.redirect('/menuInventario/requestElement');  
-})
+});
+
+router.get('/listRequest', isLoggedIn, protectIndex, async(req,res) => {
+    const requestRows = await db.query("SELECT IdSolicitud, elemento.NombreElemento, Cantidad, DATE_FORMAT(FechaSolicitud,'%d-%m-%Y') as Fecha, DATE_FORMAT(FechaSolicitud,'%Y%m%d') as FechaFormat FROM solicitud_elemento INNER JOIN elemento ON solicitud_elemento.FoElemento = elemento.IdElemento WHERE EstadoSolicitud = 'ACTIVO';");
+    res.render('menuInventario/listRequest', { requestRows });
+});
 
 
 module.exports = router;

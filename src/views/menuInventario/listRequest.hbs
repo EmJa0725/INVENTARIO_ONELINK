@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row mt-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="col-6 mx-auto">{{>message}}</div>
+            <div class="float-left ml-5"><h3>SOLICITUD ELEMENTOS</h3></div>
+            <div class="table-responsive-lg">
+                <table id="requestTableConsult" class="table table-sm table-striped table-bordered mt-4 bg-white">
+                    <thead style="background-color: rgb(92, 135, 230); font-size: 1.15rem;">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Elemento</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Fecha Solicitud</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each requestRows}}
+                        <tr>
+                            <th scope="row" id="idSalida">{{IdSolicitud}}</th>
+                            <td>{{NombreElemento}}</td>
+                            <td>{{Cantidad}}</td>
+                            <td data-order={{FechaFormat}}>{{Fecha}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>

@@ -323,7 +323,7 @@ $(document).ready(function () {
   });
   $('.dataTables_length').addClass('bs-select');
 
-  $('#inventoryTable').DataTable({
+  $('#inventoryTable,#requestTableConsult').DataTable({
     "paging": true,
     "aaSorting": [],
     "language": {
@@ -343,21 +343,21 @@ $(document).ready(function () {
         extend: 'excelHtml5',
         autofilter: true,
         text: '<i class="fas fa-file-excel"></i>',
-        title: 'REPORTE INVENTARIO',
+        title: 'REPORTE',
         tittleAttr: 'Exportar a Excel',
         className: 'btn btn-success'
       },
       {
         extend: 'pdfHtml5',
         text: '<i class="fas fa-file-pdf"></i>',
-        title: 'REPORTE INVENTARIO',
+        title: 'REPORTE',
         tittleAttr: 'Exportar a PDF',
         className: 'btn btn-danger'
       },
       {
         extend: 'print',
         text: '<i class="fas fa-print"></i>',
-        title: 'REPORTE INVENTARIO',
+        title: 'REPORTE',
         tittleAttr: 'Imprimir',
         className: 'btn btn-info'
       }
@@ -693,7 +693,8 @@ $(document).ready(function () {
               scales: {
                 xAxes: [{
                   ticks: {
-                    fontStyle: 'bold'
+                    fontStyle: 'bold',
+                    minRotation: 30
                   },
                   gridLines: {
                     offsetGridLines: true 
@@ -702,7 +703,7 @@ $(document).ready(function () {
                 yAxes: [{
                   scaleLabel: {
                     display: true,
-                    labelString: 'Valor es pesos ($)'
+                    labelString: 'Valor en pesos ($)'
                   },
                   ticks: {
                     beginAtZero: true

@@ -148,4 +148,9 @@ router.get('/deleteElement/:idElement', isLoggedIn, protectIndex, async(req,res)
     
 });
 
+router.get('/listRequest', isLoggedIn, protectIndex, async(req,res) => {
+    const requestRows = await db.query("SELECT IdSolicitud, elemento.NombreElemento, Cantidad, DATE_FORMAT(FechaSolicitud,'%d-%m-%Y') as Fecha, DATE_FORMAT(FechaSolicitud,'%Y%m%d') as FechaFormat FROM solicitud_elemento INNER JOIN elemento ON solicitud_elemento.FoElemento = elemento.IdElemento WHERE EstadoSolicitud = 'ACTIVO';");
+    res.render('menuCompras/listRequest', { requestRows });
+});
+
 module.exports = router;
