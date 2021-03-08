@@ -57,13 +57,13 @@ $(function(){
   });
 
 
-function verifyPassword(){  
+function verifyPasswordAdminModule(){  
     var password = document.getElementById('password');
     var password2 =  document.getElementById('password2');  
     //console.log(password);
     //console.log(password2);
     try {
-      document.getElementById('passwordCheck').innerHTML = password.value == password2.value ? "<span style='color: green;'>Contraseña coinciden</span>" : "<span style='color: red;'>Contraseña no coinciden</span>";
+      document.getElementById('passwordCheck').innerHTML = password.value == password2.value ? "<span style='color: green;'>Contraseñas coinciden</span>" : "<span style='color: red;'>Contraseñas no coinciden</span>";
       if (password.value == password2.value && password.value != " " && password2.value != " ") {
         password.style = "border-color:green;border-style:solid;border-width:3px";
         password2.style = "border-color:green;border-style:solid;border-width:3px";
@@ -81,15 +81,48 @@ function verifyPassword(){
     }    
 };
 
+function verifyPasswordUserModule(){  
+  var password = document.getElementById('newPassword');
+  var password2 =  document.getElementById('confirmPassword');  
+  //console.log(password);
+  //console.log(password2);
+  try {
+    document.getElementById('passwordCheck').innerHTML = password.value == password2.value ? "<span style='color: green;'>Contraseñas coinciden</span>" : "<span style='color: red;'>Contraseñas no coinciden</span>";
+    if (password.value == password2.value && password.value != " " && password2.value != " ") {
+      password.style = "border-color:green;border-style:solid;border-width:3px";
+      password2.style = "border-color:green;border-style:solid;border-width:3px";
+      document.getElementById("btnChangePassword").disabled = false;
+      return true
+    }
+    else if (password.value != password2.value) {
+      password.style = "border-color:red;border-style:solid;border-width:3px";
+      password2.style = "border-color:red;border-style:solid;border-width:3px";
+      document.getElementById("btnChangePassword").disabled = true;
+      return false
+    }
+  } catch (error) {
+    
+  }    
+};
+
+
 try{
     password.addEventListener('keyup',() =>{
-        if(password.lenght != 0) verifyPassword();
+        if(password.lenght != 0) verifyPasswordAdminModule();
     });
     password2.addEventListener('keyup', () =>{
-        if(password2.lenght != 0) verifyPassword();
+        if(password2.lenght != 0) verifyPasswordAdminModule();
     });
-} catch(e){}
+} catch(e) {}
 
+try {
+  newPassword.addEventListener('keyup', () => {
+    if (newPassword.lenght != 0) verifyPasswordUserModule();
+  });
+  confirmPassword.addEventListener('keyup', () => {
+    if (confirmPassword.lenght != 0) verifyPasswordUserModule();
+  });
+} catch (e) {}
 
 function fillUserModal(username,id){
   document.getElementById('modalBody').textContent = '¿Desea eliminar al usuario '+username+' con id = '+id+'?';

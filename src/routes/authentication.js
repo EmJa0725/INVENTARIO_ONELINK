@@ -5,6 +5,7 @@ const { isLoggedIn, protectIndex} = require('../lib/auth');
 const db = require('../database');
 const helpers = require('../lib/helpers');
 const nodemailer = require('nodemailer');
+const { matchPassword } = require('../lib/helpers');
 
 
 router.get('/signin', protectIndex, (req,res) => {
@@ -165,6 +166,49 @@ router.post('/recoverPassword', async(req,res) => {
         req.flash('message', 'Usuario no encontrado')
     }
     res.redirect('/signin');
+})
+
+router.get('/profile', async(req,res) => {
+    const user = req.user; 
+    const fNacimientoQuery = await db.query("SELECT DATE_FORMAT(FNacimientoEmpleado,'%d-%m-%Y') as FNacimiento FROM empleado WHERE IdEmpleado = ?", user.IdEmpleado);
+    fNacimiento = fNacimientoQuery[0].FNacimiento;
+    res.render('profile', {user,fNacimiento});
+});
+
+router.post('/profile', async(req, res) => {
+    const {phone,address,email,password} = req.body;
+    const matchPassword = await helpers.matchPassword(password, req.user.Password);
+    
+    if(matchPassword) {
+        userData = {
+            TelefonoEmpleado: phone,
+            DireccionEmpleado: address,
+            CorreoEmpleado: email
+        }
+        console.log(userData);
+        await db.query('UPDATE Empleado SET ? WHERE IdEmpleado = ?', [userData, req.user.IdEmpleado])
+    } else {
+        req.flash('message','Contraseña incorrecta');
+        res.redirect('/profile');
+    }
+
+    req.flash('success','Datos actualizados');
+    res.redirect('/profile');  
+});
+
+router.post('/changePassword', async(req,res) => {
+    const {actualPassword,newPassword} = req.body;
+    const matchPassword = await helpers.matchPassword(actualPassword, req.user.Password);
+    
+    if (matchPassword) {
+        await db.query('UPDATE Empleado SET Password = sha1(?) WHERE idEmpleado = ?', [newPassword, req.user.IdEmpleado]);
+    } else {
+        req.flash('message','Contraseña incorrecta');
+        res.redirect('/profile');  
+    }
+
+    req.flash('success','Contraseña actualizada');
+    res.redirect('/profile'); 
 })
 
 module.exports = router;
